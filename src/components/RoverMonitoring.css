@@ -1,0 +1,391 @@
+/* Rover Monitoring Container */
+.rover-monitoring {
+  padding: 2rem;
+  min-height: calc(100vh - 100px);
+  animation: fadeIn 0.5s ease-in;
+}
+
+/* Rover Header - Now contains only filters */
+.rover-header {
+  margin-bottom: 2rem;
+}
+
+/* Filter Buttons */
+.rover-filters {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  padding: 0.625rem 1.25rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  background: white;
+  color: #4b5563;
+  font-weight: 600;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.filter-btn:hover {
+  border-color: #10b981;
+  background: rgba(16, 185, 129, 0.05);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);
+}
+
+.filter-btn.active {
+  background: linear-gradient(135deg, #059669 0%, #10b981 50%, #34d399 100%);
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3);
+}
+
+/* Rover Statistics Cards */
+.rover-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.5rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  animation: slideUp 0.5s ease-out;
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.stat-icon {
+  width: 48px;
+  height: 48px;
+  padding: 12px;
+  border-radius: 10px;
+  background: rgba(16, 185, 129, 0.1);
+}
+
+.stat-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.stat-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+/* Rover Table Container */
+.rover-table-container {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  animation: slideUp 0.6s ease-out;
+}
+
+/* Rover Table */
+.rover-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.rover-table thead {
+  background: linear-gradient(135deg, #059669 0%, #10b981 50%, #34d399 100%);
+  color: white;
+}
+
+.rover-table th {
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  transition: background 0.2s ease;
+}
+
+.rover-table th:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.sort-indicator {
+  margin-left: 0.25rem;
+  font-weight: bold;
+}
+
+.rover-table tbody tr {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+}
+
+.rover-table tbody tr:hover {
+  background: rgba(16, 185, 129, 0.05);
+  transform: scale(1.01);
+}
+
+.rover-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.rover-table td {
+  padding: 1rem;
+  color: #374151;
+}
+
+.rover-id {
+  font-weight: 700;
+  font-family: monospace;
+  color: #059669;
+  font-size: 0.95rem;
+}
+
+/* Status Badge */
+.status-badge {
+  display: inline-block;
+  padding: 0.375rem 0.875rem;
+  border-radius: 6px;
+  color: white;
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: capitalize;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* Battery Cell */
+.battery-cell {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.battery-bar-container {
+  flex: 1;
+  height: 8px;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+  min-width: 80px;
+}
+
+.battery-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.4);
+}
+
+.battery-cell span {
+  font-weight: 600;
+  font-size: 0.875rem;
+  min-width: 40px;
+}
+
+/* Mission Status */
+.mission-status {
+  padding: 0.25rem 0.625rem;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+
+.mission-status.operational {
+  background: rgba(16, 185, 129, 0.1);
+  color: #059669;
+}
+
+.mission-status.warning {
+  background: rgba(245, 158, 11, 0.1);
+  color: #d97706;
+}
+
+/* Last Update Cell */
+.last-update-cell {
+  font-family: monospace;
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .rover-monitoring {
+    padding: 1.5rem;
+  }
+
+  .rover-title h2 {
+    font-size: 1.75rem;
+  }
+
+  .rover-stats {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+
+  .stat-card {
+    padding: 1.25rem;
+  }
+
+  .stat-value {
+    font-size: 1.75rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .rover-monitoring {
+    padding: 1rem;
+  }
+
+  .rover-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .rover-title {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .rover-title h2 {
+    font-size: 1.5rem;
+  }
+
+  .rover-filters {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 0.5rem;
+  }
+
+  .filter-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
+
+  .rover-stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.875rem;
+  }
+
+  .stat-card {
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .stat-icon {
+    width: 40px;
+    height: 40px;
+    padding: 10px;
+  }
+
+  .stat-value {
+    font-size: 1.5rem;
+  }
+
+  .rover-table-container {
+    overflow-x: auto;
+  }
+
+  .rover-table {
+    font-size: 0.8rem;
+  }
+
+  .rover-table th,
+  .rover-table td {
+    padding: 0.75rem 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .rover-monitoring {
+    padding: 0.75rem;
+  }
+
+  .title-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .rover-title h2 {
+    font-size: 1.25rem;
+  }
+
+  .rover-title p {
+    font-size: 0.85rem;
+  }
+
+  .rover-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .filter-btn {
+    flex: 1;
+    min-width: calc(50% - 0.25rem);
+  }
+
+  .rover-table {
+    font-size: 0.75rem;
+  }
+
+  .rover-table th,
+  .rover-table td {
+    padding: 0.625rem 0.375rem;
+  }
+}

@@ -1,0 +1,316 @@
+/* Battery Card Base Styling with Animations */
+.battery-card {
+  animation: slideInUp 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.battery-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+.battery-card:hover::before {
+  left: 100%;
+}
+
+.battery-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3) !important;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Charging State Glow Effect */
+.card-charging {
+  box-shadow: 0 8px 32px rgba(245, 158, 11, 0.4) !important;
+  animation: charging-glow 2s ease-in-out infinite;
+}
+
+@keyframes charging-glow {
+  0%, 100% {
+    box-shadow: 0 8px 32px rgba(245, 158, 11, 0.4);
+  }
+  50% {
+    box-shadow: 0 8px 40px rgba(245, 158, 11, 0.6), 0 0 20px rgba(245, 158, 11, 0.3);
+  }
+}
+
+.card-full {
+  box-shadow: 0 8px 32px rgba(16, 185, 129, 0.3) !important;
+}
+
+/* Icon Wrapper with Pulse Animation */
+.icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.icon-pulse {
+  animation: icon-pulse-animation 1.5s ease-in-out infinite;
+}
+
+@keyframes icon-pulse-animation {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+}
+
+/* Status Badge Animation */
+.status-badge {
+  animation: fadeIn 0.5s ease-out;
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.2);
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.status-badge:hover {
+  transform: scale(1.05);
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Battery ID Badge */
+.battery-id-badge {
+  animation: slideInRight 0.5s ease-out;
+  transition: all 0.3s ease;
+}
+
+.battery-id-badge:hover {
+  transform: scale(1.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* SoC Value Animated */
+.soc-value-animated {
+  animation: scaleIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s ease;
+}
+
+.soc-value-animated:hover {
+  transform: scale(1.1);
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Liquid Fill Progress Bar */
+.progress-bar-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-fill-liquid {
+  position: relative;
+  transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: liquid-wave 3s ease-in-out infinite;
+}
+
+.progress-fill-liquid::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+  animation: liquid-bubble 4s ease-in-out infinite;
+}
+
+@keyframes liquid-wave {
+  0%, 100% {
+    border-radius: 6px 6px 6px 6px;
+  }
+  25% {
+    border-radius: 6px 6px 8px 4px;
+  }
+  50% {
+    border-radius: 6px 6px 4px 8px;
+  }
+  75% {
+    border-radius: 6px 6px 8px 4px;
+  }
+}
+
+@keyframes liquid-bubble {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translate(20px, -10px) scale(1.2);
+    opacity: 0.5;
+  }
+}
+
+/* Metric Cards Enhanced */
+.metric-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.metric-hover:hover {
+  transform: scale(1.05) translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  background: #ffffff !important;
+}
+
+.metric-icon-wrapper {
+  position: relative;
+  animation: fadeInRotate 0.5s ease-out;
+  transition: transform 0.3s ease;
+}
+
+.metric-hover:hover .metric-icon-wrapper {
+  transform: rotate(15deg) scale(1.1);
+}
+
+@keyframes fadeInRotate {
+  from {
+    opacity: 0;
+    transform: rotate(-90deg) scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+  }
+}
+
+/* Metric Specific Colors */
+.metric-voltage {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, transparent 100%);
+  border-radius: 8px;
+  padding: 4px;
+}
+
+.metric-current {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, transparent 100%);
+  border-radius: 8px;
+  padding: 4px;
+}
+
+.metric-temperature {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, transparent 100%);
+  border-radius: 8px;
+  padding: 4px;
+}
+
+.metric-power {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, transparent 100%);
+  border-radius: 8px;
+  padding: 4px;
+}
+
+/* Metric Value Animated */
+.metric-value-animated {
+  animation: countUp 0.8s ease-out;
+}
+
+@keyframes countUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Empty State Animation */
+.empty-state-animated {
+  animation: fadeIn 0.6s ease-out;
+}
+
+.empty-icon-wrapper {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Stagger Animation for Multiple Cards */
+.battery-card:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.battery-card:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.battery-card:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+.battery-card:nth-child(4) {
+  animation-delay: 0.3s;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .battery-card:hover {
+    transform: translateY(-4px) scale(1.01);
+  }
+
+  .metric-hover:hover {
+    transform: scale(1.02);
+  }
+}

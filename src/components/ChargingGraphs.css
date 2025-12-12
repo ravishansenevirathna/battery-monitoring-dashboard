@@ -1,0 +1,347 @@
+/* Charging Graphs Container */
+.charging-graphs-container {
+  animation: fadeInScale 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Graphs Header */
+.graphs-header {
+  animation: slideInFromTop 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideInFromTop {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.graphs-title {
+  background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: text-shine 3s ease-in-out infinite;
+  background-size: 200% auto;
+}
+
+@keyframes text-shine {
+  0%, 100% {
+    background-position: 0% center;
+  }
+  50% {
+    background-position: 100% center;
+  }
+}
+
+/* Controls */
+.graphs-controls {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.control-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: transform 0.3s ease;
+}
+
+.control-label:hover {
+  transform: scale(1.05);
+}
+
+.control-select {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.control-select:hover {
+  border-color: #3b82f6;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
+  transform: translateY(-1px);
+}
+
+.control-select:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Charts Grid */
+.charts-grid {
+  animation: fadeIn 0.6s ease-out;
+  width: 100%;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Ensure all chart cards have same width */
+.charts-grid > .chart-card {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Chart Cards */
+.chart-card {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  animation: chartSlideIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+@keyframes chartSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.chart-card::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+  transform: scale(0);
+  transition: transform 0.6s ease-out;
+  pointer-events: none;
+}
+
+.chart-card:hover::after {
+  transform: scale(1);
+}
+
+.chart-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 16px 50px rgba(0, 0, 0, 0.35) !important;
+}
+
+/* Chart Specific Colors with Top Border */
+.chart-voltage {
+  border-top: 4px solid #059669;
+}
+
+.chart-current {
+  border-top: 4px solid #10b981;
+}
+
+.chart-soc {
+  border-top: 4px solid #34d399;
+}
+
+.chart-temperature {
+  border-top: 4px solid #ef4444;
+}
+
+/* Stagger Animations for Multiple Charts */
+.charts-grid .chart-card:nth-child(1) { animation-delay: 0s; }
+.charts-grid .chart-card:nth-child(2) { animation-delay: 0.1s; }
+.charts-grid .chart-card:nth-child(3) { animation-delay: 0.2s; }
+.charts-grid .chart-card:nth-child(4) { animation-delay: 0.3s; }
+
+/* Custom Tooltip Enhancements */
+.custom-tooltip {
+  animation: tooltipFadeIn 0.2s ease-out;
+  backdrop-filter: blur(12px);
+  position: relative;
+  overflow: hidden;
+}
+
+.custom-tooltip::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6, #10b981, #ef4444);
+  animation: rainbow-slide 3s linear infinite;
+  background-size: 200% auto;
+}
+
+@keyframes rainbow-slide {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+@keyframes tooltipFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.tooltip-label {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 11px;
+  padding-top: 4px;
+}
+
+.tooltip-value {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  animation: valueSlideIn 0.3s ease-out;
+  transition: transform 0.2s ease;
+}
+
+.tooltip-value:hover {
+  transform: translateX(4px);
+}
+
+@keyframes valueSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.tooltip-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 8px currentColor;
+  animation: dot-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes dot-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.8;
+  }
+}
+
+/* Chart Grid Animation */
+.chart-grid {
+  animation: grid-fade 1s ease-out;
+}
+
+@keyframes grid-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Loading State for Charts */
+@keyframes chart-loading {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .graphs-controls {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .control-label {
+    width: 100%;
+  }
+
+  .control-select {
+    flex: 1;
+  }
+
+  .charts-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .chart-card:hover {
+    transform: translateY(-4px) scale(1.01);
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .charts-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Recharts Custom Styling */
+.recharts-wrapper {
+  animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.recharts-surface {
+  overflow: visible;
+}
+
+.recharts-legend-wrapper {
+  animation: legendSlideUp 0.5s ease-out 0.3s both;
+}
+
+@keyframes legendSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
