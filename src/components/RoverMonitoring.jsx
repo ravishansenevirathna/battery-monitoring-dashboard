@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Navigation, Battery, MapPin, Clock, Gauge, Thermometer, Activity, AlertTriangle } from 'lucide-react';
 import SectionHeader from './SectionHeader';
+import RoverBatteryGraphs from './RoverBatteryGraphs';
 import './RoverMonitoring.css';
 
 const RoverMonitoring = () => {
@@ -108,6 +109,8 @@ const RoverMonitoring = () => {
         badgeColor="#10b981"
         iconColor="#10b981"
       />
+
+      <RoverBatteryGraphs roverData={roverData} />
 
       <div className="rover-header">
         {/* Filter Buttons */}
