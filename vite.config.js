@@ -5,6 +5,5 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   // Base path for GitHub Pages deployment
-  // Replace 'battery-monitoring-dashboard' with your repository name
-  base: '/battery-monitoring-dashboard/',
+  base: '/rover-monitoring/',
 })
