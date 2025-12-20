@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Area, AreaChart } from 'recharts';
 import { Zap, Thermometer, Activity, BatteryCharging } from 'lucide-react';
+import { subscribeToHistoricalData } from '../services/firestoreService';
 import { generateHistoricalData } from '../services/mockData';
 import './ChargingGraphs.css';
 
@@ -8,17 +9,38 @@ const ChargingGraphs = React.memo(({ selectedSlot = 1, timeRange = 30 }) => {
   const [historicalData, setHistoricalData] = useState([]);
 
   useEffect(() => {
-    // Load initial historical data
-    const data = generateHistoricalData(selectedSlot, timeRange);
-    setHistoricalData(data);
+    const USE_MOCK_DATA = import.meta.env.VITE_USE_MOCK_DATA === 'true';
 
-    // Simulate real-time updates - reduced frequency from 1s to 3s for better performance
-    const interval = setInterval(() => {
-      const newData = generateHistoricalData(selectedSlot, timeRange);
-      setHistoricalData(newData);
-    }, 3000); // Update every 3 seconds instead of 1 second
+    if (USE_MOCK_DATA) {
+      // Use mock data
+      const data = generateHistoricalData(selectedSlot, timeRange);
+      setHistoricalData(data);
 
-    return () => clearInterval(interval);
+      const interval = setInterval(() => {
+        const newData = generateHistoricalData(selectedSlot, timeRange);
+        setHistoricalData(newData);
+      }, 3000);
+
+      return () => clearInterval(interval);
+    } else {
+      // Use Firestore real-time historical data
+      const unsubscribe = subscribeToHistoricalData(
+        timeRange,
+        (data) => {
+          setHistoricalData(data);
+        },
+        (error) => {
+          console.error('Error loading historical data, using mock:', error);
+          // Fallback to mock data
+          const mockData = generateHistoricalData(selectedSlot, timeRange);
+          setHistoricalData(mockData);
+        }
+      );
+
+      return () => {
+        if (unsubscribe) unsubscribe();
+      };
+    }
   }, [selectedSlot, timeRange]);
 
   const CustomTooltip = ({ active, payload, label }) => {

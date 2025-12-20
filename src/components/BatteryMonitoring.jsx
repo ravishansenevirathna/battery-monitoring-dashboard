@@ -4,6 +4,7 @@ import ChargingGraphs from './ChargingGraphs';
 import AlertsPanel from './AlertsPanel';
 import SectionHeader from './SectionHeader';
 import { Battery, LineChart } from 'lucide-react';
+import { subscribeToLatestBatteryData } from '../services/firestoreService';
 import { MockDataStream } from '../services/mockData';
 import './BatteryMonitoring.css';
 
@@ -13,17 +14,38 @@ const BatteryMonitoring = () => {
   const [timeRange, setTimeRange] = useState(30); // Time range for graphs in minutes
 
   useEffect(() => {
-    // Initialize mock data stream
-    const dataStream = new MockDataStream((data) => {
-      setBatteryData(data);
-    });
+    // Use Firestore for real-time data
+    // To use mock data instead, set USE_MOCK_DATA to true
+    const USE_MOCK_DATA = import.meta.env.VITE_USE_MOCK_DATA === 'true';
 
-    dataStream.start();
+    if (USE_MOCK_DATA) {
+      // Fallback to mock data if Firebase is not configured
+      const dataStream = new MockDataStream((data) => {
+        setBatteryData(data);
+      });
+      dataStream.start();
+      return () => dataStream.stop();
+    } else {
+      // Subscribe to real-time Firestore data
+      const unsubscribe = subscribeToLatestBatteryData(
+        (data) => {
+          setBatteryData(data);
+        },
+        (error) => {
+          console.error('Firestore error, falling back to mock data:', error);
+          // Fallback to mock data on error
+          const dataStream = new MockDataStream((data) => {
+            setBatteryData(data);
+          });
+          dataStream.start();
+        }
+      );
 
-    // Cleanup on unmount
-    return () => {
-      dataStream.stop();
-    };
+      // Cleanup subscription on unmount
+      return () => {
+        if (unsubscribe) unsubscribe();
+      };
+    }
   }, []);
 
   // Memoize alerts to prevent unnecessary re-renders
