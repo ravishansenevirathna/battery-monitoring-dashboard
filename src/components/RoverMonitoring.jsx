@@ -15,7 +15,7 @@ const RoverMonitoring = () => {
       const statuses = ['active', 'idle', 'charging', 'maintenance'];
       const locations = ['Zone A', 'Zone B', 'Zone C', 'Zone D', 'Charging Bay'];
 
-      return Array.from({ length: 12 }, (_, i) => ({
+      return Array.from({ length: 1 }, (_, i) => ({
         id: `ROV-${String(i + 1).padStart(3, '0')}`,
         name: `Rover ${i + 1}`,
         status: statuses[Math.floor(Math.random() * statuses.length)],
@@ -94,99 +94,61 @@ const RoverMonitoring = () => {
     return '#ef4444';
   };
 
-  // Calculate active rovers count
-  const activeRoversCount = useMemo(() => {
-    return roverData.filter(r => r.status === 'active').length;
-  }, [roverData]);
-
   return (
     <div className="rover-monitoring">
       <SectionHeader
         icon={Navigation}
-        title="Rover Monitoring Overview"
-        description="Real-time autonomous rover tracking and fleet management system"
-        badge={roverData.length > 0 ? `${activeRoversCount}/${roverData.length} Active` : 'Loading...'}
+        title="Rover Monitoring"
+        description="Real-time autonomous rover tracking and monitoring system"
+        badge={roverData.length > 0 ? roverData[0].id : 'Loading...'}
         badgeColor="#10b981"
         iconColor="#10b981"
       />
 
       <RoverBatteryGraphs roverData={roverData} />
 
-      <div className="rover-header">
-        {/* Filter Buttons */}
-        <div className="rover-filters">
-          <button
-            className={filterStatus === 'all' ? 'filter-btn active' : 'filter-btn'}
-            onClick={() => setFilterStatus('all')}
-          >
-            All Rovers
-          </button>
-          <button
-            className={filterStatus === 'active' ? 'filter-btn active' : 'filter-btn'}
-            onClick={() => setFilterStatus('active')}
-          >
-            Active
-          </button>
-          <button
-            className={filterStatus === 'charging' ? 'filter-btn active' : 'filter-btn'}
-            onClick={() => setFilterStatus('charging')}
-          >
-            Charging
-          </button>
-          <button
-            className={filterStatus === 'idle' ? 'filter-btn active' : 'filter-btn'}
-            onClick={() => setFilterStatus('idle')}
-          >
-            Idle
-          </button>
-          <button
-            className={filterStatus === 'maintenance' ? 'filter-btn active' : 'filter-btn'}
-            onClick={() => setFilterStatus('maintenance')}
-          >
-            Maintenance
-          </button>
-        </div>
-      </div>
 
       {/* Rover Statistics Cards */}
-      <div className="rover-stats">
-        <div className="stat-card">
-          <Activity className="stat-icon" style={{ color: '#10b981' }} />
-          <div className="stat-info">
-            <span className="stat-label">Active Rovers</span>
-            <span className="stat-value">
-              {roverData.filter(r => r.status === 'active').length}
-            </span>
+      {roverData.length > 0 && (
+        <div className="rover-stats">
+          <div className="stat-card">
+            <Activity className="stat-icon" style={{ color: getStatusColor(roverData[0].status) }} />
+            <div className="stat-info">
+              <span className="stat-label">Status</span>
+              <span className="stat-value" style={{ textTransform: 'capitalize' }}>
+                {roverData[0].status}
+              </span>
+            </div>
+          </div>
+          <div className="stat-card">
+            <Battery className="stat-icon" style={{ color: getBatteryColor(roverData[0].batteryLevel) }} />
+            <div className="stat-info">
+              <span className="stat-label">Battery Level</span>
+              <span className="stat-value">
+                {roverData[0].batteryLevel.toFixed(0)}%
+              </span>
+            </div>
+          </div>
+          <div className="stat-card">
+            <Gauge className="stat-icon" style={{ color: '#3b82f6' }} />
+            <div className="stat-info">
+              <span className="stat-label">Current Speed</span>
+              <span className="stat-value">
+                {roverData[0].speed} km/h
+              </span>
+            </div>
+          </div>
+          <div className="stat-card">
+            <Thermometer className="stat-icon" style={{ color: '#ef4444' }} />
+            <div className="stat-info">
+              <span className="stat-label">Temperature</span>
+              <span className="stat-value">
+                {roverData[0].temperature}°C
+              </span>
+            </div>
           </div>
         </div>
-        <div className="stat-card">
-          <Battery className="stat-icon" style={{ color: '#3b82f6' }} />
-          <div className="stat-info">
-            <span className="stat-label">Charging</span>
-            <span className="stat-value">
-              {roverData.filter(r => r.status === 'charging').length}
-            </span>
-          </div>
-        </div>
-        <div className="stat-card">
-          <Gauge className="stat-icon" style={{ color: '#f59e0b' }} />
-          <div className="stat-info">
-            <span className="stat-label">Idle</span>
-            <span className="stat-value">
-              {roverData.filter(r => r.status === 'idle').length}
-            </span>
-          </div>
-        </div>
-        <div className="stat-card">
-          <AlertTriangle className="stat-icon" style={{ color: '#ef4444' }} />
-          <div className="stat-info">
-            <span className="stat-label">Maintenance</span>
-            <span className="stat-value">
-              {roverData.filter(r => r.status === 'maintenance').length}
-            </span>
-          </div>
-        </div>
-      </div>
+      )}
 
       {/* Rover Data Table */}
       <div className="rover-table-container">
